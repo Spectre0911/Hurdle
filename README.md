@@ -1,2 +1,2 @@
 # Hurdle
-A wordle solving AI
+A wordle solving AI in Haskell making use of optomisations suggested by 3Blue1Brown
