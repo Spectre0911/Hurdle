@@ -1,0 +1,77 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.4.
+--
+-- see: https://github.com/sol/hpack
+
+name:           hurdle
+version:        0.1.0.0
+description:    Haskell implementation of word game Wordle, used as coursework for CS141 Functional Programming at the University of Warwick.
+homepage:       https://github.com/dixonary/hurdle#readme
+bug-reports:    https://github.com/dixonary/hurdle/issues
+author:         Alex Dixon
+maintainer:     alexander.dixon@warwick.ac.uk
+copyright:      2022 Alex Dixon
+build-type:     Simple
+extra-source-files:
+    assets/allowed-guesses
+    assets/answers
+
+source-repository head
+  type: git
+  location: https://github.com/dixonary/hurdle
+
+library
+  exposed-modules:
+      Hurdle
+      Hurdle.Command
+      Hurdle.Match
+      Hurdle.Words
+  other-modules:
+      Paths_hurdle
+  hs-source-dirs:
+      src
+  build-depends:
+      ansi-terminal
+    , base >=4.7 && <5
+    , file-embed
+    , haskeline
+    , random
+  default-language: Haskell2010
+
+executable hurdle-cli
+  main-is: Main.hs
+  other-modules:
+      CLI
+      Paths_hurdle
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      ansi-terminal
+    , base >=4.7 && <5
+    , file-embed
+    , haskeline
+    , hurdle
+    , random
+  default-language: Haskell2010
+
+test-suite hurdle-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_hurdle
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      ansi-terminal
+    , base >=4.7 && <5
+    , file-embed
+    , haskeline
+    , hurdle
+    , random
+    , tasty
+    , tasty-hunit
+    , tasty-quickcheck
+  default-language: Haskell2010

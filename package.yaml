@@ -1,0 +1,47 @@
+name:                hurdle
+version:             0.1.0.0
+github:              "dixonary/hurdle"
+author:              "Alex Dixon"
+maintainer:          "alexander.dixon@warwick.ac.uk"
+copyright:           "2022 Alex Dixon"
+
+extra-source-files:
+- assets/allowed-guesses
+- assets/answers
+
+description:         "Haskell implementation of word game Wordle, used as coursework for CS141 Functional Programming at the University of Warwick."
+
+dependencies:
+- base >= 4.7 && < 5
+- file-embed
+- random
+- ansi-terminal
+- haskeline
+
+library:
+  source-dirs: src
+
+executables:
+  hurdle-cli:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hurdle
+
+tests:
+  hurdle-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - hurdle
+    - tasty
+    - tasty-hunit
+    - tasty-quickcheck
