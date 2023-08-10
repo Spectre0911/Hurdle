@@ -10,8 +10,6 @@ import Data.List
 import GHC.Read (list)
 
 
--- | 1. Given an input guess, change it so that it is all upper case.        
---
 -- This function takes every character in the given input and uses a guard to check if the letter is actually a character we wish to have in the final string.
 -- At first I was going to generate the list with list comprehension techniques e.g (['a'..'z'] ++ map toUpper ['a' .. 'z'] However, I decided against this as storing the list locally meant the machine has 
 -- to do less processing which means that the function will take less time to run for a given input. 
@@ -22,8 +20,6 @@ normalise input = [toUpper letter | letter <- input, letter `elem` alphabet]
 alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 --------------------------------------------------------------------------------
--- | 2. A valid guess is a one which appears in `guessList`.                 
---
 -- Within the function I use normalise which was the previous function I created. I use this to make sure that the word I am passing to the function is of the expected capitalised form and that no dissallowed 
 -- characters are in the input.
 -- I am using `elem` *syntactic sugar* so that I can place the function between the parameters to make the code more readable. I use elem as it is the easiest way to check if a parameter is an
@@ -35,7 +31,6 @@ isValid unvalidatedWord = normalise unvalidatedWord `elem` guessList
 
 
 --------------------------------------------------------------------------------
--- | 3. Our program runs a little command line. Specific strings should be   
 -- treated not as guesses, but as commands. See the specification for details.
 --
 -- This function takes in a input which could be un normalised. It then normalises the string and compares the string against given commands. If the string passed to the function is what 
@@ -56,7 +51,6 @@ parseCommand input | normalisedInput  == "LETTERS" = ShowLetters
 
 
 --------------------------------------------------------------------------------
--- | 4. Part one of the matching algorithm finds the exact matches.
 -- For each position, give back IsExact if the two characters are the 
 -- same, or IsNotExact if they are different. 
 -- Implement this using explicit recursion. If you can see a more elegant 
@@ -84,7 +78,6 @@ exactMatches (x:xs) (y:ys) | x == y = IsExact x : exactMatches xs ys
 
 
 --------------------------------------------------------------------------------
--- | 5. We want to keep track of the "unused" characters in the answer. First, 
 -- we use up all of the exact matches. This function takes the exact matches and 
 -- the answer and gives back all the characters not already exactly matched.
 
@@ -107,7 +100,6 @@ removeExacts (x:xs) (y:ys) | IsExact y /= x = y : removeExacts xs ys
 
 
 --------------------------------------------------------------------------------
--- | 6. Follow the algorithm in the specification to correctly return the list 
 -- of character matches, given the result of exactMatches and any unused 
 -- characters of the answer.
 --
@@ -138,7 +130,6 @@ getMatches (IsNotExact x : xs) removeExactsResult | x `elem` removeExactsResult 
 
 
 --------------------------------------------------------------------------------
--- | 7. Write the complete matching algorithm as a composition of the above 
 -- three functions.
 --
 
@@ -155,7 +146,6 @@ matchingAlgo guess answer = getMatches matches (removeExacts matches answer)
 
 
 --------------------------------------------------------------------------------
--- | 8. Given a list of candidate words, remove those words which would not 
 -- have generated the given match based on the guess that was made.
 --
 -- This function recurses over ever element in the guessList. It then runs the matchingAlgo on the guess and the current head of the guess list.
@@ -180,7 +170,6 @@ eliminate guess matches (x:xs) | matchingAlgo guess x == matches = x : eliminate
 
 
 --------------------------------------------------------------------------------
--- | 9. Based on the whole history of the game so far, return only those words 
 -- from `guessList` which might still be the hidden word.
 --
 -- This function returns the list of words based on the last guesses that are most likely to contain the answer. By reducing the size of the guess list each time we hone in on the 
@@ -201,7 +190,6 @@ eliminateAll ((guess,match): xs) = eliminate guess match (eliminateAll xs)
 
 
 --------------------------------------------------------------------------------
--- | 10. Using the above functions, write a function which produces a next guess 
 -- based on the history of the game so far. 
 --
 -- nextGuess initialy guesses CRANE as according to: https://thesmartlocal.com/read/best-wordle-words/ it is the best first word to choose. The second guess in most cases will be the
