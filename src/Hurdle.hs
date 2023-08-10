@@ -10,17 +10,6 @@ import Data.List
 import GHC.Read (list)
 
 
---------------------------------------------------------------------------------
--- This file is your complete submission for the first coursework of CS141.
--- 
--- u2109963 
---
--- Before starting on this file, ensure that you have read the specification IN
--- ITS ENTIRETY and that you understand everything that is required from a good
--- solution.
---------------------------------------------------------------------------------
-
-
 -- | 1. Given an input guess, change it so that it is all upper case.        
 --
 -- This function takes every character in the given input and uses a guard to check if the letter is actually a character we wish to have in the final string.
